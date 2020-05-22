@@ -1,0 +1,94 @@
+:root {
+    --color-bg-main: #112;
+    --color-bg-video: #001;
+    --color-bg-header: #123;
+
+    --color-bg-viewer: #001;
+
+    --color-tabs: rgb(186, 198, 198);
+    --color-tabs--hovered: rgb(94, 119, 168);
+    --color-text-dark: #112;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--color-bg-main);
+    font-family: Roboto, sans-serif;
+}
+
+.header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: 100vh;
+    background-color: var(--color-bg-header);
+}
+
+.viewer {
+    width: 1080px;
+    height: 720px;
+    position: relative;
+
+    padding: 25px;
+    border-radius: 5px;
+    background-color: var(--color-bg-viewer);
+}
+
+.viewer__tabs {
+    top: 0;
+    left: 0;
+
+    opacity: 0.8;
+    position: absolute;
+    color: var(--color-text-dark);
+
+    display: flex;
+
+    background-color: var(--color-tabs);
+}
+
+.tab__label {
+    display: block;
+
+    padding: 10px 25px;
+    cursor: pointer;
+}
+
+.viewer__tabs {
+    overflow: hidden;
+    border-radius: 0 0 16px 0;
+}
+
+.tab__label:hover {
+    background-color: var(--color-tabs--hovered);
+}
+
+.tab__radio {
+    display: none;
+}
+
+.tab__radio:checked + .tab__label {
+    background-color: var(--color-tabs--hovered);
+}
+
+.main-video {
+    height: 100%;
+    width: 100%;
+
+    background-color: var(--color-bg-video);
+}
+
+.additional-video {
+    bottom: 30px;
+    right: 30px;
+    position: absolute;
+    height: 220px;
+    width: 290px;
+
+    background-color: var(--color-bg-video);
+}
