@@ -1,6 +1,5 @@
 let camera, scene, renderer;
 let geometry, material, mesh;
-let model = document.querySelector('.model');
 
 init();
 animate();

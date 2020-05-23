@@ -5,17 +5,21 @@ function getSwitchButtonHandler(cameraStream, mainVideo, additionalVideo) {
             mainVideo.srcObject = undefined;
             mainVideo.classList.add('hidden')
             additionalVideo.classList.remove('hidden')
+            model.classList.remove('hidden')
         } else {
             mainVideo.srcObject = cameraStream;
             additionalVideo.srcObject = undefined;
             mainVideo.classList.remove('hidden')
             additionalVideo.classList.add('hidden')
+            model.classList.add('hidden')
         }
 
         mainVideo.play();
         additionalVideo.play();
     }
 }
+
+let model = document.querySelector('.model');
 
 ((mainVideo, additionalVideo) => {
     navigator.mediaDevices.getUserMedia({
