@@ -24,6 +24,9 @@ function init() {
 
     model.appendChild(renderer.domElement);
     additionalModel.appendChild(additionalRenderer.domElement);
+
+
+    window.addEventListener('resize', onWindowResize, false)
 }
 
 function animate() {
@@ -34,4 +37,11 @@ function animate() {
 
     renderer.render(scene, camera);
     additionalRenderer.render(scene, camera);
+}
+
+function onWindowResize() {
+    camera.updateProjectionMatrix();
+
+    renderer.setSize(model.clientWidth, model.clientHeight);
+    additionalRenderer.setSize(additionalModel.clientWidth, additionalModel.clientHeight);
 }
