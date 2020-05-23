@@ -1,33 +1,22 @@
+const model = document.querySelector('.model');
+const additionalModel = document.querySelector('.additional-model');
+
 function getSwitchButtonHandler(cameraStream, mainVideo, additionalVideo) {
     return function switchButtonClickHandler(e) {
-        if (e.target.checked && e.target.value === 'main-view') {
-            additionalVideo.srcObject = cameraStream;
-            mainVideo.srcObject = undefined;
-            mainVideo.classList.add('hidden')
-            additionalVideo.classList.remove('hidden')
-            model.classList.remove('hidden')
-        } else {
-            mainVideo.srcObject = cameraStream;
-            additionalVideo.srcObject = undefined;
-            mainVideo.classList.remove('hidden')
-            additionalVideo.classList.add('hidden')
-            model.classList.add('hidden')
+        if (e.target.checked) {
+            [mainVideo, model, additionalVideo].map(e => e.classList.toggle('hidden'));
         }
-
-        mainVideo.play();
-        additionalVideo.play();
     }
 }
-
-let model = document.querySelector('.model');
 
 ((mainVideo, additionalVideo) => {
     navigator.mediaDevices.getUserMedia({
         video: true,
         audio: false
     }).then(stream => {
-        additionalVideo.srcObject = stream;
+        additionalVideo.srcObject = ( mainVideo.srcObject = stream);
         additionalVideo.play();
+        mainVideo.play();
 
         document.querySelectorAll('.tab__radio')
             .forEach(e => e.addEventListener('change', getSwitchButtonHandler(stream, mainVideo, additionalVideo)));

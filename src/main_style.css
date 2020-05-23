@@ -83,7 +83,7 @@ body {
     background-color: var(--color-bg-video);
 }
 
-.additional-video {
+.additional {
     bottom: 30px;
     right: 30px;
     position: absolute;
