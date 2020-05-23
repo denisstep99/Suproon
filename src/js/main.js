@@ -9,18 +9,26 @@ function getSwitchButtonHandler(cameraStream, mainVideo, additionalVideo) {
     }
 }
 
-((mainVideo, additionalVideo) => {
-    navigator.mediaDevices.getUserMedia({
-        video: true,
-        audio: false
-    }).then(stream => {
-        additionalVideo.srcObject = ( mainVideo.srcObject = stream);
-        additionalVideo.play();
-        mainVideo.play();
+function cameraStreamRegister({detail}) {
+    const mainVideo = document.querySelector('.main-video');
+    const additionalVideo = document.querySelector('.additional-video');
 
-        document.querySelectorAll('.tab__radio')
-            .forEach(e => e.addEventListener('change', getSwitchButtonHandler(stream, mainVideo, additionalVideo)));
-    }).catch(e => {
-        throw e
-    });
-})(document.querySelector('.main-video'), document.querySelector('.additional-video'));
+    additionalVideo.srcObject = (mainVideo.srcObject = detail.stream);
+    additionalVideo.play();
+    mainVideo.play();
+
+    document.querySelectorAll('.tab__radio')
+        .forEach(e => e.addEventListener('change', getSwitchButtonHandler(detail.stream, mainVideo, additionalVideo)));
+}
+
+
+navigator.mediaDevices.getUserMedia({
+    video: true,
+    audio: false
+}).then(stream => {
+    window.dispatchEvent(new CustomEvent('camera-stream--found', {detail: {stream}}));
+}).catch(e => {
+    throw e
+});
+
+window.addEventListener('camera-stream--found', cameraStreamRegister);
