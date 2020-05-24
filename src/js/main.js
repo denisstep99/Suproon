@@ -1,3 +1,5 @@
+const threeModule = require('./three');
+
 const model = document.querySelector('.model');
 const additionalModel = document.querySelector('.additional-model');
 
@@ -32,3 +34,6 @@ navigator.mediaDevices.getUserMedia({
 });
 
 window.addEventListener('camera-stream--found', cameraStreamRegister);
+
+threeModule.init(model, additionalModel);
+threeModule.animate();

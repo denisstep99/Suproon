@@ -1,0 +1,26 @@
+{
+  "name": "suproon",
+  "version": "1.0.0",
+  "description": "no description",
+  "main": "index.js",
+  "scripts": {
+    "dev": "webpack src/js/main.js -o src/data/main.js --watch --mode='development'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/denisstep99/Suproon.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/denisstep99/Suproon/issues"
+  },
+  "homepage": "https://github.com/denisstep99/Suproon#readme",
+  "dependencies": {
+    "three": "^0.116.1"
+  },
+  "devDependencies": {
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11"
+  }
+}

@@ -1,10 +1,9 @@
+const THREE = require('three');
+
 let camera, scene, renderer, additionalRenderer;
 let geometry, material, mesh;
 
-init();
-animate();
-
-function init() {
+function init(model, additionalModel) {
     camera = new THREE.PerspectiveCamera(70, model.clientWidth / model.clientHeight, 0.01, 10);
     camera.position.z = 1;
 
@@ -44,4 +43,9 @@ function onWindowResize() {
 
     renderer.setSize(model.clientWidth, model.clientHeight);
     additionalRenderer.setSize(additionalModel.clientWidth, additionalModel.clientHeight);
+}
+
+module.exports = {
+    init,
+    animate
 }
