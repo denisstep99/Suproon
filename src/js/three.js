@@ -1,4 +1,8 @@
 const THREE = require('three');
+const GEOMETRY = {
+    'BOX': new THREE.BoxGeometry(0.2, 0.2, 0.2),
+    'CONE': new THREE.ConeGeometry( 0.2, 0.2, 3 ),
+    'CYLINDER': new THREE.CylinderGeometry( 0.15, 0.15, 0.2, 32 )};
 
 let camera, scene, renderer, additionalRenderer;
 let geometry, material, mesh;
@@ -25,7 +29,17 @@ function init(model, additionalModel) {
     additionalModel.appendChild(additionalRenderer.domElement);
 
 
-    window.addEventListener('resize', onWindowResize, false)
+    window.addEventListener('resize', onWindowResize.bind(null, model), false);
+    document.querySelectorAll('.btn-bar__tab-radio')
+        .forEach(e => e.addEventListener('change', changeGeometry));
+}
+
+function changeGeometry({target}) {
+    scene.remove(...scene.children);
+
+    geometry = GEOMETRY[target.value.toUpperCase()];
+    mesh = new THREE.Mesh(geometry, material);
+    scene.add(mesh);
 }
 
 function animate() {
@@ -38,7 +52,7 @@ function animate() {
     additionalRenderer.render(scene, camera);
 }
 
-function onWindowResize() {
+function onWindowResize(model) {
     camera.updateProjectionMatrix();
 
     renderer.setSize(model.clientWidth, model.clientHeight);

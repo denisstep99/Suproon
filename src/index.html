@@ -13,12 +13,26 @@
     <article class="viewer">
         <div class="viewer__tabs">
             <div class="tab">
-                <input id="tab__radio-1" class="tab__radio" name="viewer__tabs" value="main-view" type="radio" checked>
-                <label for="tab__radio-1" class="tab__label">Модель</label>
+                <input id="tab__radio-1" class="tab__radio viewer__tab-radio" name="viewer__tabs" value="main-view" type="radio" checked>
+                <label for="tab__radio-1" class="tab__label viewer__tab-label">Модель</label>
             </div>
             <div class="tab">
-                <input id="tab__radio-2" class="tab__radio" name="viewer__tabs" value="additional-view" type="radio">
-                <label for="tab__radio-2" class="tab__label">Камера</label>
+                <input id="tab__radio-2" class="tab__radio viewer__tab-radio" name="viewer__tabs" value="additional-view" type="radio">
+                <label for="tab__radio-2" class="tab__label viewer__tab-label">Камера</label>
+            </div>
+        </div>
+        <div class="btn-bar">
+            <div class="tab tab_type_side">
+                <input id="model__button_square" type="radio" name="model__button" class="tab__radio btn-bar__tab-radio" value="box" checked>
+                <label class="tab__label btn-bar__label btn-bar__label_type_square" for="model__button_square"></label>
+            </div>
+            <div class="tab tab_type_side">
+                <input id="model__button_circle" type="radio" name="model__button" class="tab__radio btn-bar__tab-radio" value="cylinder">
+                <label class="tab__label btn-bar__label btn-bar__label_type_circle" for="model__button_circle"></label>
+            </div>
+            <div class="tab tab_type_side">
+                <input id="model__button_triangle"  type="radio" name="model__button" class="tab__radio btn-bar__tab-radio" value="cone">
+                <label class="tab__label btn-bar__label btn-bar__label_type_triangle" for="model__button_triangle"></label>
             </div>
         </div>
         <video class="main-video hidden"></video>

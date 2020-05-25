@@ -19,7 +19,7 @@ function cameraStreamRegister({detail}) {
     additionalVideo.play();
     mainVideo.play();
 
-    document.querySelectorAll('.tab__radio')
+    document.querySelectorAll('.viewer__tab-radio')
         .forEach(e => e.addEventListener('change', getSwitchButtonHandler(detail.stream, mainVideo, additionalVideo)));
 }
 

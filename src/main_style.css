@@ -54,9 +54,11 @@ body {
 
 .tab__label {
     display: block;
-
-    padding: 10px 25px;
     cursor: pointer;
+}
+
+.viewer__tab-label {
+    padding: 10px 25px;
 }
 
 .viewer__tabs {
@@ -100,4 +102,41 @@ body {
 
 .hidden {
     display: none;
+}
+
+.btn-bar {
+    position: absolute;
+    top: 100px;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.btn-bar__label {
+    background-size: 50%;
+    background-repeat: no-repeat ;
+    background-position: 50%;
+    padding: 30px 20px;
+}
+
+.tab_type_side {
+    width: 60px;
+    height: 60px;
+
+    background-color: var(--color-tabs);
+    opacity: 0.4;
+
+    margin-bottom: 10px;
+}
+
+.btn-bar__label_type_square {
+    background-image: url("https://image.flaticon.com/icons/svg/1215/1215910.svg");
+}
+
+.btn-bar__label_type_triangle {
+    background-image: url("https://image.flaticon.com/icons/svg/2192/2192447.svg");
+}
+
+.btn-bar__label_type_circle {
+    background-image: url("https://image.flaticon.com/icons/svg/481/481856.svg");
 }
