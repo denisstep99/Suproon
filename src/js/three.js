@@ -52,11 +52,13 @@ function animate() {
     additionalRenderer.render(scene, camera);
 }
 
+// Небольшой баг, если изменить размер с камерой на главном, а потом переключить, модель обрежется.
 function onWindowResize(model) {
-    camera.updateProjectionMatrix();
-
-    renderer.setSize(model.clientWidth, model.clientHeight);
-    additionalRenderer.setSize(additionalModel.clientWidth, additionalModel.clientHeight);
+    if (model.clientWidth) {
+        renderer.setSize(model.clientWidth, model.clientHeight);
+        camera.aspect = model.clientWidth / model.clientHeight;
+        camera.updateProjectionMatrix();
+    }
 }
 
 module.exports = {
