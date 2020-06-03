@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/suproon.iml" filepath="$PROJECT_DIR$/.idea/suproon.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/Suproon.iml" filepath="$PROJECT_DIR$/.idea/Suproon.iml" />
     </modules>
   </component>
 </project>
