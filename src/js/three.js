@@ -11,9 +11,10 @@ const buttons = {
     isRightButtonPressed: false,
     isLeftButtonPressed: false,
     isScalePlusButtonPressed: false,
-    isScaleMinusButtonPressed: false
+    isScaleMinusButtonPressed: false,
+    isTopButtonPressed: false,
+    isBottomButtonPressed: false,
 }
-
 
 function init(model, additionalModel) {
     camera = new THREE.PerspectiveCamera(70, model.clientWidth / model.clientHeight, 0.01, 10);
@@ -53,7 +54,6 @@ function changeGeometry({target}) {
 
 function animate() {
     requestAnimationFrame(animate);
-
     if (buttons.isRightButtonPressed) {
         rotateRight();
     }
@@ -66,9 +66,23 @@ function animate() {
     if (buttons.isScalePlusButtonPressed) {
         scalePlus();
     }
+    if (buttons.isTopButtonPressed) {
+        rotateTop();
+    }
+    if (buttons.isBottomButtonPressed) {
+        rotateBottom();
+    }
 
     renderer.render(scene, camera);
     additionalRenderer.render(scene, camera);
+}
+
+function rotateBottom() {
+    mesh.rotation.x += 0.01;
+}
+
+function rotateTop() {
+    mesh.rotation.x -= 0.01;
 }
 
 function scalePlus() {
@@ -90,29 +104,15 @@ function rotateLeft() {
 }
 
 function checkControlButtons() {
-    document.querySelector(".btn-bar__label_type_rotation-right").addEventListener('mousedown', () => {
-        buttons.isRightButtonPressed = true;
+    document.querySelectorAll(".btn-bar_side_right .btn-bar__button").forEach(element => {
+        element.addEventListener('mousedown', (event) => {
+            buttons[`is${element.dataset.type}Pressed`] = true;
+            console.log(element.dataset.type);
+            event.stopPropagation();
+        });
     });
-    document.querySelector(".btn-bar__label_type_rotation-right").addEventListener('mouseup', () => {
-        buttons.isRightButtonPressed = false;
-    });
-    document.querySelector(".btn-bar__label_type_rotation-left").addEventListener('mousedown', () => {
-        buttons.isLeftButtonPressed = true;
-    });
-    document.querySelector(".btn-bar__label_type_rotation-left").addEventListener('mouseup', () => {
-        buttons.isLeftButtonPressed = false;
-    });
-    document.querySelector(".btn-bar__label_type_scale-plus").addEventListener('mousedown', () => {
-        buttons.isScalePlusButtonPressed = true;
-    });
-    document.querySelector(".btn-bar__label_type_scale-plus").addEventListener('mouseup', () => {
-        buttons.isScalePlusButtonPressed = false;
-    });
-    document.querySelector(".btn-bar__label_type_scale-minus").addEventListener('mousedown', () => {
-        buttons.isScaleMinusButtonPressed = true;
-    });
-    document.querySelector(".btn-bar__label_type_scale-minus").addEventListener('mouseup', () => {
-        buttons.isScaleMinusButtonPressed = false;
+    document.addEventListener('mouseup', () => {
+        Object.keys(buttons).forEach(key => buttons[key] = false);
     });
 }
 

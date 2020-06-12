@@ -167,6 +167,15 @@ body {
     background-image: url("https://image.flaticon.com/icons/svg/99/99157.svg");
 }
 
+.btn-bar__label_type_rotation-top {
+    background-image: url("https://image.flaticon.com/icons/svg/1828/1828496.svg");
+}
+
+.btn-bar__label_type_rotation-bottom {
+    background-image: url("https://image.flaticon.com/icons/svg/1828/1828496.svg");
+    transform: scaleY(-1);
+}
+
 .btn-bar_side_left {
     left: 0;
 }
