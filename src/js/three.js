@@ -127,5 +127,6 @@ function onWindowResize(model) {
 
 module.exports = {
     init,
-    animate
+    animate,
+    actions: {rotateBottom, rotateLeft, rotateRight, rotateTop, scaleMinus, scalePlus}
 }

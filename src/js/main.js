@@ -1,4 +1,6 @@
+require('./socket');
 const threeModule = require('./three');
+
 
 const model = document.querySelector('.model');
 const additionalModel = document.querySelector('.additional-model');
