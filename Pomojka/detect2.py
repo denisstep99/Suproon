@@ -125,7 +125,7 @@ def detect(save_img=False):
                 p, s, im0 = path, '', im0s
 
             save_path = str(Path(out) / Path(p).name)
-            result_data = {"x1": None, "x2": None, "y1": None, "y2": None, "class": None, "img": None}
+            result_data = {"x": None, "y": None, "class": None, "img": None}
             s += '%gx%g ' % img.shape[2:]  # print string
             gn = torch.tensor(im0.shape)[[1, 0, 1, 0]]  #  normalization gain whwh
             if det is not None and len(det):
@@ -136,10 +136,8 @@ def detect(save_img=False):
                 for c in det[:, -1].unique():
                     n = (det[:, -1] == c).sum()  # detections per class
 
-                    result_data["x1"] = det[0, 0].item()
-                    result_data["x2"] = det[0, 0].item()
-                    result_data["y1"] = det[0, 0].item()
-                    result_data["y2"] = det[0, 0].item()
+                    result_data["x"] = det[0, 0].item()
+                    result_data["y"] = det[0, 1].item()
                     result_data["class"] = names[int(c)]
                     s += '%g %ss, ' % (n, names[int(c)])  # add to string
 
