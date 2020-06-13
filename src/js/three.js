@@ -33,6 +33,7 @@ function init(model, additionalModel) {
 
     additionalRenderer = new THREE.WebGLRenderer({antialias: true});
     additionalRenderer.setSize(additionalModel.clientWidth, additionalModel.clientHeight);
+    console.log(additionalModel.clientWidth)
 
     model.appendChild(renderer.domElement);
     additionalModel.appendChild(additionalRenderer.domElement);
@@ -42,6 +43,18 @@ function init(model, additionalModel) {
     document.querySelectorAll('.btn-bar_side_left .btn-bar__tab-radio')
         .forEach(e => e.addEventListener('change', changeGeometry));
     checkControlButtons();
+
+    window.addEventListener('switch-button--clicked', function({detail}) {
+        console.log(1)
+        if (detail.value === "main-view") {
+            console.log(model.clientWidth)
+            camera.aspect = model.clientWidth / model.clientHeight;
+            camera.updateProjectionMatrix();
+        } else {
+            camera.aspect = additionalModel.clientWidth / additionalModel.clientHeight;
+            camera.updateProjectionMatrix();
+        }
+    })
 }
 
 function changeGeometry({target}) {

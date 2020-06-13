@@ -5,35 +5,22 @@ const threeModule = require('./three');
 const model = document.querySelector('.model');
 const additionalModel = document.querySelector('.additional-model');
 
-function getSwitchButtonHandler(cameraStream, mainVideo, additionalVideo) {
+function getSwitchButtonHandler(mainVideo, additionalVideo) {
     return function switchButtonClickHandler(e) {
         if (e.target.checked) {
             [mainVideo, model, additionalVideo].map(e => e.classList.toggle('hidden'));
+            window.dispatchEvent(new CustomEvent('switch-button--clicked', {detail: {value: e.target.value}}));
         }
     }
 }
 
-function cameraStreamRegister({detail}) {
+function cameraStreamRegister() {
     const mainVideo = document.querySelector('.main-video');
     const additionalVideo = document.querySelector('.additional-video');
 
-    additionalVideo.srcObject = (mainVideo.srcObject = detail.stream);
-    additionalVideo.play();
-    mainVideo.play();
-
     document.querySelectorAll('.viewer__tab-radio')
-        .forEach(e => e.addEventListener('change', getSwitchButtonHandler(detail.stream, mainVideo, additionalVideo)));
+        .forEach(e => e.addEventListener('change', getSwitchButtonHandler(mainVideo, additionalVideo)));
 }
-
-
-navigator.mediaDevices.getUserMedia({
-    video: true,
-    audio: false
-}).then(stream => {
-    window.dispatchEvent(new CustomEvent('camera-stream--found', {detail: {stream}}));
-}).catch(e => {
-    throw e
-});
 
 window.addEventListener('camera-stream--found', cameraStreamRegister);
 
