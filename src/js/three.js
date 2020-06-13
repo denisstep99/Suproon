@@ -90,12 +90,93 @@ function animate() {
     additionalRenderer.render(scene, camera);
 }
 
+function fingerRotate(data, lastData) {
+    if (data.x - lastData.x >= 5){
+        rotateLeft()
+        console.log("rotateLeft")
+    } else if(data.x - lastData.x <= -5){
+        rotateRight()
+        console.log("rotateRight")
+    }
+    if (data.y - lastData.y >= 5){
+        rotateBottom()
+        console.log("rotateBottom")
+    } else if(data.y - lastData.y <= -5){
+        rotateTop()
+        console.log("rotateTop")
+    }
+    console.log(data.x - lastData.x)
+}
+
+function fistMove(data, lastData) {
+    if (data.x - lastData.x >= 5){
+        moveLeft()
+        console.log("moveLeft")
+    } else if(data.x - lastData.x <= -5){
+        moveRight()
+        console.log("moveRight")
+    }
+    if (data.y - lastData.y >= 5){
+        moveForward()
+        console.log("moveForward")
+    } else if(data.y - lastData.y <= -5){
+        moveBackward()
+        console.log("moveBackward")
+    }
+    console.log(data.x - lastData.x)
+}
+
+function moveForward() {
+    for (let i = 0; i < 10; i++){
+        mesh.position.y += 0.01
+        console.log('qwerqwre')
+    }
+}
+function moveBackward() {
+    for (let i = 0; i < 10; i++){
+        mesh.position.y -= 0.01
+    }
+
+}
+function moveLeft() {
+    for (let i = 0; i < 10; i++){
+        mesh.position.x -= 0.01
+    }
+
+}
+function moveRight() {
+    for (let i = 0; i < 10; i++){
+        mesh.position.x += 0.01
+    }
+
+}
+
 function rotateBottom() {
-    mesh.rotation.x += 0.01;
+    for (let i = 0; i < 10; i++){
+        mesh.rotation.x += 0.01;
+    }
+
 }
 
 function rotateTop() {
-    mesh.rotation.x -= 0.01;
+    for (let i = 0; i < 10; i++){
+        mesh.rotation.x -= 0.01;
+    }
+
+}
+
+function rotateRight() {
+    for (let i = 0; i < 10; i++){
+        mesh.rotation.y += 0.01;
+    }
+
+}
+
+function rotateLeft() {
+    for (let i = 0; i < 10; i++){
+        mesh.rotation.y -= 0.01;
+    }
+
 }
 
 function scalePlus() {
@@ -106,14 +187,6 @@ function scalePlus() {
 function scaleMinus() {
     camera.fov++;
     camera.updateProjectionMatrix();
-}
-
-function rotateRight() {
-    mesh.rotation.y += 0.01;
-}
-
-function rotateLeft() {
-    mesh.rotation.y -= 0.01;
 }
 
 function checkControlButtons() {
@@ -141,5 +214,5 @@ function onWindowResize(model) {
 module.exports = {
     init,
     animate,
-    actions: {rotateBottom, rotateLeft, rotateRight, rotateTop, scaleMinus, scalePlus}
+    actions: {rotateBottom, rotateLeft, rotateRight, rotateTop, scaleMinus, scalePlus, fingerRotate, fistMove}
 }
