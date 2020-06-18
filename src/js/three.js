@@ -57,10 +57,15 @@ function init(model, additionalModel) {
     })
 }
 
-function changeGeometry({target}) {
+function changeGeometry({target}={target: "box"}, name) {
     scene.remove(...scene.children);
 
-    geometry = GEOMETRY[target.value.toUpperCase()];
+    if (!name) {
+        geometry = GEOMETRY[target.value.toUpperCase()];
+    } else {
+        console.log(1)
+        geometry = GEOMETRY[name.toUpperCase()];
+    }
     mesh = new THREE.Mesh(geometry, material);
     scene.add(mesh);
 }
@@ -91,7 +96,7 @@ function animate() {
 }
 
 function fingerRotate(data, lastData) {
-    if (data.x - lastData.x >= 5){
+    if (data.x - lastData.x >= 2){
         rotateLeft()
         console.log("rotateLeft")
     } else if(data.x - lastData.x <= -5){
@@ -127,56 +132,37 @@ function fistMove(data, lastData) {
 }
 
 function moveForward() {
-    for (let i = 0; i < 10; i++){
-        mesh.position.y += 0.01
-        console.log('qwerqwre')
-    }
+        mesh.position.y += 0.03
 }
 function moveBackward() {
-    for (let i = 0; i < 10; i++){
-        mesh.position.y -= 0.01
-    }
-
+        mesh.position.y -= 0.03
 }
 function moveLeft() {
-    for (let i = 0; i < 10; i++){
-        mesh.position.x -= 0.01
-    }
-
+        mesh.position.x -= 0.03
 }
 function moveRight() {
-    for (let i = 0; i < 10; i++){
-        mesh.position.x += 0.01
-    }
+        mesh.position.x += 0.03
+}
 
+function updatePosition() {
+    mesh.position.x = mesh.position.y = 0;
+    mesh.rotation.x = mesh.rotation.y = 0;
 }
 
 function rotateBottom() {
-    for (let i = 0; i < 10; i++){
-        mesh.rotation.x += 0.01;
-    }
-
+        mesh.rotation.x += 0.06;
 }
 
 function rotateTop() {
-    for (let i = 0; i < 10; i++){
-        mesh.rotation.x -= 0.01;
-    }
-
+        mesh.rotation.x -= 0.06;
 }
 
 function rotateRight() {
-    for (let i = 0; i < 10; i++){
-        mesh.rotation.y += 0.01;
-    }
-
+        mesh.rotation.y += 0.06;
 }
 
 function rotateLeft() {
-    for (let i = 0; i < 10; i++){
-        mesh.rotation.y -= 0.01;
-    }
-
+        mesh.rotation.y -= 0.06;
 }
 
 function scalePlus() {
@@ -214,5 +200,5 @@ function onWindowResize(model) {
 module.exports = {
     init,
     animate,
-    actions: {rotateBottom, rotateLeft, rotateRight, rotateTop, scaleMinus, scalePlus, fingerRotate, fistMove}
+    actions: {rotateBottom, rotateLeft, rotateRight, rotateTop, scaleMinus, scalePlus, fingerRotate, fistMove, updatePosition, changeGeometry}
 }

@@ -125,7 +125,8 @@ def detect(save_img=False):
                 p, s, im0 = path, '', im0s
 
             save_path = str(Path(out) / Path(p).name)
-            result_data = {"x": None, "y": None, "class": None, "img": None}
+            result_data = {"img": None, "classes": []}
+
             s += '%gx%g ' % img.shape[2:]  # print string
             gn = torch.tensor(im0.shape)[[1, 0, 1, 0]]  #  normalization gain whwh
             if det is not None and len(det):
@@ -133,13 +134,21 @@ def detect(save_img=False):
                 det[:, :4] = scale_coords(img.shape[2:], det[:, :4], im0.shape).round()
 
                 # Print results
+                print(det)
                 for c in det[:, -1].unique():
                     n = (det[:, -1] == c).sum()  # detections per class
-
-                    result_data["x"] = det[0, 0].item()
-                    result_data["y"] = det[0, 1].item()
-                    result_data["class"] = names[int(c)]
                     s += '%g %ss, ' % (n, names[int(c)])  # add to string
+
+                for element in det:
+                    x_center = (element[0].item() + element[2].item()) / 2
+                    y_center = (element[1].item() + element[3].item()) / 2
+                    result_data["classes"].append({
+                        "class": names[int(element[-1])],
+                        "x": element[0].item(),
+                        "y": element[1].item(),
+                        "x_center": x_center,
+                        "y_center": y_center,
+                    })
 
                 # Write results
                 for *xyxy, conf, cls in det:
@@ -154,7 +163,6 @@ def detect(save_img=False):
 
             # Print time (inference + NMS)
             print('%sDone. (%.3fs)' % (s, t2 - t1))
-
 
             # Stream results
             if view_img:
