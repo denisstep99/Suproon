@@ -1,8 +1,9 @@
 const THREE = require('three');
 const GEOMETRY = {
     'BOX': new THREE.BoxGeometry(0.2, 0.3, 0.2),
-    'CONE': new THREE.ConeGeometry( 0.2, 0.2, 3 ),
-    'CYLINDER': new THREE.CylinderGeometry( 0.15, 0.15, 0.2, 32 )};
+    'CONE': new THREE.ConeGeometry(0.2, 0.2, 3),
+    'CYLINDER': new THREE.CylinderGeometry(0.15, 0.15, 0.2, 32)
+};
 
 let camera, scene, renderer, additionalRenderer;
 let geometry, material, mesh;
@@ -44,7 +45,7 @@ function init(model, additionalModel) {
         .forEach(e => e.addEventListener('change', changeGeometry));
     checkControlButtons();
 
-    window.addEventListener('switch-button--clicked', function({detail}) {
+    window.addEventListener('switch-button--clicked', function ({detail}) {
         console.log(1)
         if (detail.value === "main-view") {
             console.log(model.clientWidth)
@@ -57,7 +58,7 @@ function init(model, additionalModel) {
     })
 }
 
-function changeGeometry({target}={target: "box"}, name) {
+function changeGeometry({target} = {target: "box"}, name) {
     scene.remove(...scene.children);
 
     if (!name) {
@@ -96,17 +97,17 @@ function animate() {
 }
 
 function fingerRotate(data, lastData) {
-    if (data.x - lastData.x >= 2){
+    if (data.x - lastData.x >= 2) {
         rotateLeft()
         console.log("rotateLeft")
-    } else if(data.x - lastData.x <= -5){
+    } else if (data.x - lastData.x <= -5) {
         rotateRight()
         console.log("rotateRight")
     }
-    if (data.y - lastData.y >= 5){
+    if (data.y - lastData.y >= 5) {
         rotateBottom()
         console.log("rotateBottom")
-    } else if(data.y - lastData.y <= -5){
+    } else if (data.y - lastData.y <= -5) {
         rotateTop()
         console.log("rotateTop")
     }
@@ -114,34 +115,47 @@ function fingerRotate(data, lastData) {
 }
 
 function fistMove(data, lastData) {
-    if (data.x - lastData.x >= 5){
+    if (data.x - lastData.x >= 5) {
         moveLeft()
         console.log("moveLeft")
-    } else if(data.x - lastData.x <= -5){
+    } else if (data.x - lastData.x <= -5) {
         moveRight()
         console.log("moveRight")
     }
-    if (data.y - lastData.y >= 5){
+    if (data.y - lastData.y >= 5) {
         moveForward()
         console.log("moveForward")
-    } else if(data.y - lastData.y <= -5){
+    } else if (data.y - lastData.y <= -5) {
         moveBackward()
         console.log("moveBackward")
     }
     console.log(data.x - lastData.x)
 }
 
+function twoScale(data, lastData) {
+    if (data.y - lastData.y >= 5) {
+        scalePlus()
+        console.log("scalePlus")
+    } else if (data.y - lastData.y <= -5) {
+        scaleMinus()
+        console.log("scaleMinus")
+    }
+}
+
 function moveForward() {
-        mesh.position.y += 0.03
+    mesh.position.y += 0.03
 }
+
 function moveBackward() {
-        mesh.position.y -= 0.03
+    mesh.position.y -= 0.03
 }
+
 function moveLeft() {
-        mesh.position.x -= 0.03
+    mesh.position.x -= 0.03
 }
+
 function moveRight() {
-        mesh.position.x += 0.03
+    mesh.position.x += 0.03
 }
 
 function updatePosition() {
@@ -150,28 +164,28 @@ function updatePosition() {
 }
 
 function rotateBottom() {
-        mesh.rotation.x += 0.06;
+    mesh.rotation.x += 0.06;
 }
 
 function rotateTop() {
-        mesh.rotation.x -= 0.06;
+    mesh.rotation.x -= 0.06;
 }
 
 function rotateRight() {
-        mesh.rotation.y += 0.06;
+    mesh.rotation.y += 0.06;
 }
 
 function rotateLeft() {
-        mesh.rotation.y -= 0.06;
+    mesh.rotation.y -= 0.06;
 }
 
 function scalePlus() {
-    camera.fov--;
+    camera.fov -= 2;
     camera.updateProjectionMatrix();
 }
 
 function scaleMinus() {
-    camera.fov++;
+    camera.fov += 2;
     camera.updateProjectionMatrix();
 }
 
@@ -200,5 +214,17 @@ function onWindowResize(model) {
 module.exports = {
     init,
     animate,
-    actions: {rotateBottom, rotateLeft, rotateRight, rotateTop, scaleMinus, scalePlus, fingerRotate, fistMove, updatePosition, changeGeometry}
+    actions: {
+        rotateBottom,
+        rotateLeft,
+        rotateRight,
+        rotateTop,
+        scaleMinus,
+        scalePlus,
+        fingerRotate,
+        fistMove,
+        updatePosition,
+        changeGeometry,
+        twoScale
+    }
 }

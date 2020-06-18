@@ -28,9 +28,11 @@ socket.on('message', function (data) {
     if (data.classes.length === 2 && data.classes.findIndex(e => e.class === 'five') !== -1 && data.classes.findIndex(e => e.class === 'fist') !== -1) {
         actions.changeGeometry(undefined, "cone");
     }
-    // if (data.class === 'two') {
-    //     actions.scalePlus();
-    // }
+
+    if (data.classes.length === 1 && data.classes[0].class === 'two') {
+        actions.twoScale(data.classes[0], lastData);
+    }
+
     if (data.classes.length === 1 && data.classes[0].class === 'one') {
         actions.fingerRotate(data.classes[0], lastData);
     }
