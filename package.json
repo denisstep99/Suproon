@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/denisstep99/Suproon#readme",
   "dependencies": {
-    "three": "^0.116.1"
+    "three": "^0.137.0"
   },
   "devDependencies": {
     "webpack": "^4.43.0",
